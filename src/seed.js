@@ -1,10 +1,11 @@
+/* eslint-disable no-plusplus */
 export function seedDatabase(firebase) {
   const users = [
     {
       userId: 'Vdsj3aOewkNTB3PKcC0Sa7h3ivk1',
-      username: 'karl',
-      fullName: 'Karl Hadwen',
-      emailAddress: 'karlhadwen@gmail.com',
+      username: 'kia',
+      fullName: 'Kia Kiakia',
+      emailAddress: 'hola_kia@hotmail.it',
       following: ['2'],
       followers: ['2', '3', '4'],
       dateCreated: Date.now()
