@@ -9,7 +9,7 @@ export default function Signup() {
   const { firebase } = useContext(FirebaseContext);
 
   const [username, setUsername] = useState('');
-  const [fullname, setFullname] = useState('');
+  const [fullName, setFullname] = useState('');
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
 
@@ -41,20 +41,20 @@ export default function Signup() {
         await firebase.firestore().collection('users').add({
           userId: createdUserResult.user.uid,
           username: username.toLowerCase(),
-          fullname,
+          fullName,
           emailAddress: emailAddress.toLowerCase(),
           following: [], // if you want ot automatically follow someone upon profile creation you can add uid in here
           dateCreated: Date.now()
         });
-        history.push(ROUTES.DASHBOARD);
+        history.push(ROUTES.DASHBOARD); // redirecting the user
       } catch (error) {
-        setUsername('');
         setFullname('');
         setEmailAddress('');
         setPassword('');
         setError(error.message);
       }
     } else {
+      setUsername('');
       setError('That username is already taken, please try another one.');
     }
   };
@@ -87,7 +87,7 @@ export default function Signup() {
               placeholder="Full name"
               className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2"
               onChange={({ target }) => setFullname(target.value)}
-              value={fullname}
+              value={fullName}
             />
             <input
               aria-label="Enter your email address"
