@@ -25,9 +25,41 @@ export async function getUserByUserId(userId) {
 
 export async function getSuggestedProfiles(userId, following) {
   // eslint-disable-next-line prettier/prettier
-  const result = await firebase.firestore().collection('users').where('userId', '==', userId).limit(10).get();
-  // console.log(result);
+  const result = await firebase.firestore().collection('users').limit(10).get();
+
   return result.docs
     .map((user) => ({ ...user.data(), docId: user.id }))
-    .filter((profile) => profile.userId === userId && !following.includes(profile.userId));
+    .filter((profile) => profile.userId !== userId && !following.includes(profile.userId));
+}
+
+export async function updateLoggedInUserFollowing(
+  loggedInUserDocId, // currently logged in user document id
+  profileId, // the user that is being sent the follow request for
+  isFollowingProfile // boolean
+) {
+  return firebase
+    .firestore()
+    .collection('users')
+    .doc(loggedInUserDocId)
+    .update({
+      following: isFollowingProfile
+        ? FieldValue.arrayRemove(profileId)
+        : FieldValue.arrayUnion(profileId)
+    });
+}
+
+export async function updateFollowedUserFollowers(
+  profileDocId,
+  loggedInUserDocId,
+  isFollowingProfile
+) {
+  return firebase
+    .firestore()
+    .collection('users')
+    .doc(profileDocId)
+    .update({
+      followers: isFollowingProfile
+        ? FieldValue.arrayRemove(loggedInUserDocId)
+        : FieldValue.arrayUnion(loggedInUserDocId)
+    });
 }
