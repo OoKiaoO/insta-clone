@@ -20,7 +20,7 @@ export default function usePhotos() {
         // console.log(followedUserPhotos);
       }
 
-      // followedUserPhotos.sort((a, b) => b.dateCreated - a.dateCreated);
+      followedUserPhotos.sort((a, b) => b.dateCreated - a.dateCreated);
       setPhotos(followedUserPhotos);
     }
     getTimelinePhotos();
