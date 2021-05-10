@@ -11,7 +11,7 @@ export async function doesUsernameExist(username) {
   return result.docs.map((user) => user.data().length > 0);
 }
 
-// create a function to retrieve user data by uid from firestore
+// create a function to retrieve user data by uid from firestore => return boolean
 export async function getUserByUserId(userId) {
   const result = await firebase.firestore().collection('users').where('userId', '==', userId).get();
 
@@ -21,6 +21,19 @@ export async function getUserByUserId(userId) {
   }));
 
   return user;
+}
+
+export async function getUserByUsername(username) {
+  const result = await firebase
+    .firestore()
+    .collection('users')
+    .where('username', '==', username)
+    .get();
+
+  return result.docs.map((item) => ({
+    ...item.data(),
+    docId: item.id // saving the individual doc id in case we may need it to set key attr
+  }));
 }
 
 export async function getSuggestedProfiles(userId, following) {
@@ -76,8 +89,6 @@ export async function getPhotos(userId, following) {
     docId: photo.id
   }));
 
-  // console.log(userFollowedPhotos);
-
   const photosWithUserDetails = await Promise.all(
     userFollowedPhotos.map(async (photo) => {
       let userLikedPhoto = false;
@@ -91,6 +102,20 @@ export async function getPhotos(userId, following) {
       return { username, ...photo, userLikedPhoto };
     })
   );
-  // console.log(photosWithUserDetails);
+
   return photosWithUserDetails; // array
+}
+
+export async function getUserPhotosByUsername(username) {
+  const [user] = await getUserByUsername(username);
+  const result = await firebase
+    .firestore()
+    .collection('photos')
+    .where('userId', '==', user.userId)
+    .get();
+
+  return result.docs.map((item) => ({
+    ...item.data(),
+    docId: item.id
+  }));
 }
