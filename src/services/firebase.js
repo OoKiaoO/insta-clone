@@ -47,7 +47,7 @@ export async function getSuggestedProfiles(userId, following) {
 
 export async function updateLoggedInUserFollowing(
   loggedInUserDocId, // currently logged in user document id
-  profileId, // the user that is being sent the follow request for
+  profileId, // the user that is being sent the follow request for (userId)
   isFollowingProfile // boolean
 ) {
   return firebase
@@ -62,8 +62,8 @@ export async function updateLoggedInUserFollowing(
 }
 
 export async function updateFollowedUserFollowers(
-  profileDocId,
-  loggedInUserDocId,
+  profileDocId, // followed user document id
+  loggedInUserId, // currently logged in user Id
   isFollowingProfile
 ) {
   return firebase
@@ -72,8 +72,8 @@ export async function updateFollowedUserFollowers(
     .doc(profileDocId)
     .update({
       followers: isFollowingProfile
-        ? FieldValue.arrayRemove(loggedInUserDocId)
-        : FieldValue.arrayUnion(loggedInUserDocId)
+        ? FieldValue.arrayRemove(loggedInUserId)
+        : FieldValue.arrayUnion(loggedInUserId)
     });
 }
 
@@ -133,4 +133,15 @@ export async function isUserFollowingProfile(loggedInUserUsername, profileUserId
     docId: item.id
   }));
   return response.userId;
+}
+
+export async function toggleFollow(
+  isFollowingProfile,
+  activeUserDocId, // currently logged in user DOCUMENT-id !== userId
+  profileId, // userId of the profile I want to follow/unfollow
+  profileUserDocId, // profile DOCUMENT-id of user I want to follow/unfollow
+  activeUserId // currently logged in user userId
+) {
+  await updateLoggedInUserFollowing(activeUserDocId, profileId, isFollowingProfile);
+  await updateFollowedUserFollowers(profileUserDocId, activeUserId, isFollowingProfile);
 }
