@@ -43,6 +43,7 @@ export default function Signup() {
           username: username.toLowerCase(),
           fullName,
           emailAddress: emailAddress.toLowerCase(),
+          followers: [],
           following: [], // if you want ot automatically follow someone upon profile creation you can add uid in here
           dateCreated: Date.now()
         });
