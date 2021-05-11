@@ -82,7 +82,7 @@ export default function Header({ photosCount, profile, followerCount, setFollowe
         </div>
         <div className="container mt-4">
           <p className="font-medium">
-            {!profile.fullName ? <Skeleton count={1} h={24} /> : profile.fullName}
+            {!profile.fullName ? <Skeleton count={1} height={24} /> : profile.fullName}
           </p>
         </div>
       </div>
