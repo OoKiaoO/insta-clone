@@ -5,7 +5,7 @@ import App from './App';
 import FirebaseContext from './context/firebase';
 import { firebase, FieldValue } from './lib/firebase';
 import './styles/app.css';
-// import reportWebVitals from './reportWebVitals';
+// Firebse context wrapped around the App comp cause the whole app needs access to stored data (Login, Signup, Profile)
 
 ReactDOM.render(
   <FirebaseContext.Provider value={{ firebase, FieldValue }}>

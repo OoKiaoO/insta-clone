@@ -14,7 +14,7 @@ export default function AddComment({ docId, comments, setComments, commentInput 
   const handleSubmitComment = (event) => {
     event.preventDefault();
 
-    setComments([{ displayName, comment }, ...comments]);
+    setComments([...comments, { displayName, comment }]);
     // firebase comment structure => comments (array), each comment = obj with 2 keys
     // creating a new array with the new comment + the rest of the already existing comments array (spread)
     // N.B. setComments only works with state, to have this persist we have to pass it to firebase!

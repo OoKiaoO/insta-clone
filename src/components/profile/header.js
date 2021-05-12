@@ -1,13 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Skeleton from 'react-loading-skeleton';
 import useUser from '../../hooks/use-user';
 import { isUserFollowingProfile, toggleFollow } from '../../services/firebase';
+import UserContext from '../../context/user';
 
 export default function Header({ photosCount, profile, followerCount, setFollowerCount }) {
-  const { user } = useUser();
+  const { user: loggedInUser } = useContext(UserContext);
+  const { user } = useUser(loggedInUser?.uid);
   const [isFollowingProfile, setIsFollowingProfile] = useState(false);
-  const activeBtnFollow = user.username && user.username !== profile.username;
+  const activeBtnFollow = user?.username && user?.username !== profile.username;
 
   useEffect(() => {
     const isLoggedInUserFollowingProfile = async () => {
@@ -17,10 +19,10 @@ export default function Header({ photosCount, profile, followerCount, setFollowe
       setIsFollowingProfile(!!isFollowing);
     };
 
-    if (user.username && profile.userId) {
+    if (user?.username && profile.userId) {
       isLoggedInUserFollowingProfile();
     }
-  }, [user.username, profile.userId]);
+  }, [user?.username, profile.userId]);
 
   const handleToggleFollow = async () => {
     setIsFollowingProfile((isFollowingProfile) => !isFollowingProfile);
@@ -32,13 +34,19 @@ export default function Header({ photosCount, profile, followerCount, setFollowe
 
   return (
     <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg">
-      <div className="container flex justify-center">
-        {user.username && (
+      <div className="container flex justify-center items-center">
+        {profile.username ? (
           // TODO: implement Skeleton for img loading
           <img
             className="rounded-full h-40 w-40 flex"
             alt={`${profile.username} profile`}
             src={`/images/avatars/${profile.username}.jpg`}
+          />
+        ) : (
+          <img
+            className="rounded-full h-40 w-40 flex"
+            alt="Default profile"
+            src="images/avatars/default.png"
           />
         )}
       </div>
@@ -62,7 +70,7 @@ export default function Header({ photosCount, profile, followerCount, setFollowe
         </div>
         <div className="container flex mt-4">
           {profile.followers === undefined || profile.following === undefined ? (
-            <Skeleton count={1} w={677} h={24} />
+            <Skeleton count={1} width={677} height={24} />
           ) : (
             <>
               <p className="mr-10">

@@ -15,7 +15,7 @@ const Dashboard = lazy(() => import('./pages/dashboard'));
 const Profile = lazy(() => import('./pages/profile'));
 
 export default function App() {
-  const { user } = useAuthListener();
+  const { user } = useAuthListener(); // authenticated user account
 
   return (
     <UserContext.Provider value={{ user }}>
