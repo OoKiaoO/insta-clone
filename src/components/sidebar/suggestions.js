@@ -20,7 +20,7 @@ export default function Suggestions({ userId, following, loggedInUserDocId }) {
     if (userId) {
       suggestedProfiles();
     }
-  }, [userId]);
+  }, [userId, following]);
 
   // render the profiles (wait for the profiles with skeleton)
   return !profiles ? (

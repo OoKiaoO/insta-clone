@@ -25,7 +25,7 @@ export default function UserProfile({ user }) {
     }
 
     getProfileInfoAndPhotos();
-  }, [user.username]);
+  }, [user]);
 
   // console.log(profile.userId, followerCount);
 
