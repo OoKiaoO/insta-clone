@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Skeleton from 'react-loading-skeleton';
@@ -35,18 +36,19 @@ export default function Header({ photosCount, profile, followerCount, setFollowe
   return (
     <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg">
       <div className="container flex justify-center items-center">
-        {profile.username ? (
-          // TODO: implement Skeleton for img loading
-          <img
-            className="rounded-full h-40 w-40 flex"
-            alt={`${profile.username} profile`}
-            src={`/images/avatars/${profile.username}.jpg`}
-          />
+        {!profile.username ? (
+          <Skeleton count={1} height={160} width={160} />
         ) : (
           <img
             className="rounded-full h-40 w-40 flex"
-            alt="Default profile"
-            src="images/avatars/default.png"
+            alt={`${profile.username} profile`}
+            src={
+              profile.username === 'kia' || profile.username === 'Mikiri'
+                ? `/images/avatars/${profile.username}.jpg`
+                : profile.avatar
+                ? profile.avatar
+                : `/images/avatars/default-noface.png`
+            }
           />
         )}
       </div>
@@ -108,6 +110,7 @@ Header.propTypes = {
     fullName: PropTypes.string,
     following: PropTypes.array,
     followers: PropTypes.array,
-    username: PropTypes.string
+    username: PropTypes.string,
+    avatar: PropTypes.string
   }).isRequired
 };

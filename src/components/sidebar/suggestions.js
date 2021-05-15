@@ -21,7 +21,7 @@ export default function Suggestions({ userId, following, loggedInUserDocId }) {
       suggestedProfiles();
     }
   }, [userId, following]);
-
+  console.log(profiles);
   // render the profiles (wait for the profiles with skeleton)
   return !profiles ? (
     <Skeleton count={1} height={150} className="mt-5" />
@@ -39,6 +39,7 @@ export default function Suggestions({ userId, following, loggedInUserDocId }) {
             profileId={profile.userId}
             userId={userId}
             loggedInUserDocId={loggedInUserDocId}
+            avatar={profile.avatar}
           />
         ))}
       </div>

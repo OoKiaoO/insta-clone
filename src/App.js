@@ -28,7 +28,7 @@ export default function App() {
             <IsUserLoggedIn user={user} loggedInPath={ROUTES.DASHBOARD} path={ROUTES.SIGN_UP}>
               <SignUp />
             </IsUserLoggedIn>
-            <Route path={ROUTES.PROFILE} component={Profile} />
+            <Route path={ROUTES.PROFILE} component={Profile} user={user} />
             <ProtectedRoute user={user} path={ROUTES.DASHBOARD} exact>
               <Dashboard />
             </ProtectedRoute>

@@ -1,3 +1,5 @@
+/* eslint-disable no-unneeded-ternary */
+/* eslint-disable no-nested-ternary */
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -8,7 +10,8 @@ export default function SuggestedProfile({
   username,
   profileId,
   userId,
-  loggedInUserDocId
+  loggedInUserDocId,
+  avatar
 }) {
   const [followed, setFollowed] = useState(false);
 
@@ -27,7 +30,14 @@ export default function SuggestedProfile({
       <div className="flex items-center justify-between">
         <img
           className="rounded-full w-8 flex mr-3"
-          src={`/images/avatars/${username}.jpg`}
+          test={console.log('username', username)}
+          src={
+            username === 'kia' || username === 'mikiri'
+              ? `/images/avatars/${username}.png`
+              : !avatar
+              ? `/images/avatars/default.png`
+              : avatar
+          }
           alt=""
         />
         <Link to={`/p/${username}`}>
@@ -50,5 +60,6 @@ SuggestedProfile.propTypes = {
   username: PropTypes.string.isRequired,
   profileId: PropTypes.string.isRequired,
   userId: PropTypes.string.isRequired,
-  loggedInUserDocId: PropTypes.string.isRequired
+  loggedInUserDocId: PropTypes.string.isRequired,
+  avatar: PropTypes.string
 };

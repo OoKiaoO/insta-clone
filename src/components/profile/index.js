@@ -26,9 +26,8 @@ export default function UserProfile({ user }) {
 
     getProfileInfoAndPhotos();
   }, [user]);
-
-  // console.log(profile.userId, followerCount);
-
+  console.log('profileIndexUser', user);
+  console.log('profileIndexProfile', profile);
   return (
     <>
       <Header
@@ -50,6 +49,7 @@ UserProfile.propTypes = {
     following: PropTypes.array.isRequired,
     fullName: PropTypes.string.isRequired,
     userId: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired
+    username: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired
   }).isRequired
 };

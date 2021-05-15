@@ -14,13 +14,12 @@ export default function Profile() {
   useEffect(() => {
     async function checkUserExists() {
       const user = await getUserByUsername(username);
-      if (user.length > 0) {
+      if (user?.length > 0) {
         setUser(user[0]);
       } else {
         history.push(ROUTES.NOT_FOUND);
       }
     }
-
     checkUserExists();
   }, [username, history]);
 

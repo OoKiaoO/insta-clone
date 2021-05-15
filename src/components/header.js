@@ -1,13 +1,15 @@
+/* eslint-disable no-nested-ternary */
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import FirebaseContext from '../context/firebase'; // it gives us functions to sign out the user
 import UserContext from '../context/user';
 import * as ROUTES from '../constants/routes';
+import useUser from '../hooks/use-user';
 
 export default function Header() {
   const { firebase } = useContext(FirebaseContext);
   const { user } = useContext(UserContext);
-  // console.log(user);
+  const { user: loggedInUser } = useUser(user?.uid);
 
   return (
     <header className="h-16 bg-white border-b border-gray-primary mb-8">
@@ -16,7 +18,7 @@ export default function Header() {
           <div className="text-gray-700 text-center flex items-center align-items cursor-pointer">
             <h1 className="flex justify-center w-full">
               <Link to={ROUTES.DASHBOARD} aria-label="Instagram logo">
-                <img src="/images/logo.png" alt="Instagram" className="mt-2 w-6/12" />
+                <img src="/images/insta-clone.png" alt="Instagram" className="mt-2 w-6/12" />
               </Link>
             </h1>
           </div>
@@ -71,7 +73,13 @@ export default function Header() {
                   <Link to={`/p/${user.displayName}`}>
                     <img
                       className="rounded-full h-h w-8 flex"
-                      src={`/images/avatars/${user.displayName}.jpg`}
+                      src={
+                        user.displayName === 'kia' || user.displayName === 'Frattaglia'
+                          ? `/images/avatars/${user.displayName}.jpg`
+                          : loggedInUser.avatar
+                          ? loggedInUser.avatar
+                          : `/images/avatars/default.png`
+                      }
                       alt={`${user.displayName} profile`}
                     />
                   </Link>

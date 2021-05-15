@@ -22,6 +22,8 @@ export default function Signup() {
     document.title = 'Signup - Insta-clone';
   }, []);
 
+  const randomAvatar = () => Math.floor(Math.random() * 8).toString();
+
   // handle what happens after Signup
   const handleSignUp = async (event) => {
     event.preventDefault();
@@ -38,15 +40,19 @@ export default function Signup() {
           displayName: username
         });
         // firebase user collection (create a document)
-        await firebase.firestore().collection('users').add({
-          userId: createdUserResult.user.uid,
-          username: username.toLowerCase(),
-          fullName,
-          emailAddress: emailAddress.toLowerCase(),
-          followers: [],
-          following: [], // if you want ot automatically follow someone upon profile creation you can add uid in here
-          dateCreated: Date.now()
-        });
+        await firebase
+          .firestore()
+          .collection('users')
+          .add({
+            userId: createdUserResult.user.uid,
+            username: username.toLowerCase(),
+            fullName,
+            emailAddress: emailAddress.toLowerCase(),
+            followers: [],
+            following: ['BLKvNgY2xPO59PTVccEM3n3TKIi1'], // if you want ot automatically follow someone upon profile creation you can add uid in here
+            avatar: `/images/avatars/default/${randomAvatar()}.png`,
+            dateCreated: Date.now()
+          });
         history.push(ROUTES.DASHBOARD); // redirecting the user
       } catch (error) {
         setFullname('');
