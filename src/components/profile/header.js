@@ -43,7 +43,7 @@ export default function Header({ photosCount, profile, followerCount, setFollowe
             className="rounded-full h-40 w-40 flex"
             alt={`${profile.username} profile`}
             src={
-              profile.username === 'kia' || profile.username === 'Mikiri'
+              profile.username === 'kia' || profile.username === 'mikiri'
                 ? `/images/avatars/${profile.username}.jpg`
                 : profile.avatar
                 ? profile.avatar

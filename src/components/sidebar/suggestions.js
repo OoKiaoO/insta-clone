@@ -16,12 +16,11 @@ export default function Suggestions({ userId, following, loggedInUserDocId }) {
       setProfiles(response);
     }
 
-    // console.log(userId);
     if (userId) {
       suggestedProfiles();
     }
   }, [userId, following]);
-  console.log(profiles);
+
   // render the profiles (wait for the profiles with skeleton)
   return !profiles ? (
     <Skeleton count={1} height={150} className="mt-5" />

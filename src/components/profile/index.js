@@ -23,11 +23,9 @@ export default function UserProfile({ user }) {
       const photos = await getUserPhotosByUsername(user.username);
       dispatch({ profile: user, photosCollection: photos, followerCount: user.followers?.length });
     }
-
     getProfileInfoAndPhotos();
   }, [user]);
-  console.log('profileIndexUser', user);
-  console.log('profileIndexProfile', profile);
+
   return (
     <>
       <Header
@@ -50,6 +48,6 @@ UserProfile.propTypes = {
     fullName: PropTypes.string.isRequired,
     userId: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired
+    avatar: PropTypes.string
   }).isRequired
 };

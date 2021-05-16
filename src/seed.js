@@ -49,25 +49,47 @@ export function seedDatabase(firebase) {
     firebase
       .firestore()
       .collection('photos')
-      .add({
-        photoId: i,
-        userId: '2',
-        imageSrc: `/images/users/raphael/${i}.jpg`,
-        caption: 'Saint George and the Dragon',
-        likes: [],
-        comments: [
-          {
-            displayName: 'dali',
-            comment: 'Love this place, looks like my animal farm!'
-          },
-          {
-            displayName: 'orwell',
-            comment: 'Would you mind if I used this picture?'
-          }
-        ],
-        userLatitude: '40.7128°',
-        userLongitude: '74.0060°',
-        dateCreated: Date.now()
-      });
+      .add([
+        {
+          photoId: 'i',
+          userId: '2',
+          imageSrc: `/images/users/kia/${i}.jpg`,
+          caption: 'Saint George and the Dragon',
+          likes: [],
+          comments: [
+            {
+              displayName: 'dali',
+              comment: 'Love this place, looks like my animal farm!'
+            },
+            {
+              displayName: 'orwell',
+              comment: 'Would you mind if I used this picture?'
+            }
+          ],
+          userLatitude: '40.7128°',
+          userLongitude: '74.0060°',
+          dateCreated: Date.now()
+        },
+        {
+          photoId: 'i',
+          userId: '2',
+          imageSrc: `/images/users/kia/.jpg`,
+          caption: 'Saint George and the Dragon',
+          likes: [],
+          comments: [
+            {
+              displayName: 'dali',
+              comment: 'Love this place, looks like my animal farm!'
+            },
+            {
+              displayName: 'orwell',
+              comment: 'Would you mind if I used this picture?'
+            }
+          ],
+          userLatitude: '40.7128°',
+          userLongitude: '74.0060°',
+          dateCreated: Date.now()
+        }
+      ]);
   }
 }

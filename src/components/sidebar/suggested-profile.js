@@ -30,10 +30,9 @@ export default function SuggestedProfile({
       <div className="flex items-center justify-between">
         <img
           className="rounded-full w-8 flex mr-3"
-          test={console.log('username', username)}
           src={
             username === 'kia' || username === 'mikiri'
-              ? `/images/avatars/${username}.png`
+              ? `/images/avatars/${username}.jpg`
               : !avatar
               ? `/images/avatars/default.png`
               : avatar

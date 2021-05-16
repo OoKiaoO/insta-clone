@@ -1,4 +1,5 @@
 /* eslint-disable no-nested-ternary */
+import Skeleton from 'react-loading-skeleton';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import FirebaseContext from '../context/firebase'; // it gives us functions to sign out the user
@@ -70,19 +71,23 @@ export default function Header() {
                 </button>
 
                 <div className="flex items-center cursor-pointer">
-                  <Link to={`/p/${user.displayName}`}>
-                    <img
-                      className="rounded-full h-h w-8 flex"
-                      src={
-                        user.displayName === 'kia' || user.displayName === 'Frattaglia'
-                          ? `/images/avatars/${user.displayName}.jpg`
-                          : loggedInUser.avatar
-                          ? loggedInUser.avatar
-                          : `/images/avatars/default.png`
-                      }
-                      alt={`${user.displayName} profile`}
-                    />
-                  </Link>
+                  {!loggedInUser.avatar ? (
+                    <Skeleton count={1} height={32} width={32} />
+                  ) : (
+                    <Link to={`/p/${user.displayName}`}>
+                      <img
+                        className="rounded-full h-8 w-8 flex"
+                        src={
+                          user.displayName === 'kia' || user.displayName === 'mikiri'
+                            ? `/images/avatars/${user.displayName}.jpg`
+                            : loggedInUser.avatar
+                            ? loggedInUser.avatar
+                            : `/images/avatars/default.png`
+                        }
+                        alt={`${user.displayName} profile`}
+                      />
+                    </Link>
+                  )}
                 </div>
               </>
             ) : (
