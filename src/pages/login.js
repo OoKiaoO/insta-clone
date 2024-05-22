@@ -80,7 +80,7 @@ export default function Login() {
           <p className="text-sm">
             Don't have an account?{` `}
             <Link to={ROUTES.SIGN_UP} className="font-bold text-blue-medium">
-              Sing Up
+              Sign Up
             </Link>
           </p>
         </div>
